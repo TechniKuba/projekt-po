@@ -3,6 +3,13 @@ from decimal import Decimal, getcontext
 
 def pierwiastek(liczba, miejsca):
 
+    if liczba < 0:
+        raise ValueError(
+            "nie ma pierwiastka z liczby ujemnej"
+        )  # jesli liczba ujemna, zglaszamy blad i zatrzymujemy funkcje
+    if liczba == 0:
+        return Decimal(0)
+
     dlugosc = len(str(liczba))
     getcontext().prec = dlugosc + miejsca + 10
     epsilon = (
@@ -19,4 +26,4 @@ def pierwiastek(liczba, miejsca):
 
 
 print(pierwiastek(2, 30))
-print(pierwiastek(10**400, 5))
+print(pierwiastek(0, 2))
