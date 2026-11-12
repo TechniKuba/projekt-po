@@ -2,11 +2,17 @@ from decimal import Decimal, getcontext
 
 
 def pierwiastek(liczba, miejsca):
-
+    if type(liczba) != int or type(miejsca) != int:
+        raise TypeError("Potrzeba liczby całkowitej")
     if liczba < 0:
         raise ValueError(
-            "nie ma pierwiastka z liczby ujemnej"
-        )  # jesli liczba ujemna, zglaszamy blad i zatrzymujemy funkcje
+            "nie ma pierwiastka z liczby ujemnej"# jesli liczba ujemna, zglaszamy blad i zatrzymujemy funkcje
+        )
+    if miejsca <0:
+        raise ValueError("miejsca po przecinku nie mogą byc ujemne")
+    if miejsca > 1000:
+        raise ValueError("za duzo miejsc po porzecinku max(1000)")
+    
     if liczba == 0:
         return Decimal(0)
 
