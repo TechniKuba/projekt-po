@@ -31,5 +31,16 @@ def pierwiastek(liczba, miejsca):
     return (bok_a + bok_b) / 2  # srodek miedzy bokami po skonczeniu petli
 
 
-print(pierwiastek(2, 30))
-print(pierwiastek(0, 2))
+def main (read, write):  # read() czeka na wpisanie tekstu
+
+    liczba = int(read())   # wczytanie pierwszej liczby
+
+    miejsca = int(read())  # wczytanie drugiej liczby
+
+    wynik = pierwiastek(liczba, miejsca)# liczenie pierwiastka
+    wynik = round(liczba, miejsca) #zaokralenie
+    write(wynik) # wypisanie wyniku
+    
+
+main(input, print)
+
