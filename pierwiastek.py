@@ -31,15 +31,20 @@ def pierwiastek(liczba, miejsca):
     return (bok_a + bok_b) / 2  # srodek miedzy bokami po skonczeniu petli
 
 
-def main (read, write):  # read() czeka na wpisanie tekstu
+def main (read, write):
+    try:  # read() czeka na wpisanie tekstu
 
-    liczba = int(read())   # wczytanie pierwszej liczby
+        liczba = int(read())   # wczytanie pierwszej liczby
 
-    miejsca = int(read())  # wczytanie drugiej liczby
+        miejsca = int(read())  # wczytanie drugiej liczby
 
-    wynik = pierwiastek(liczba, miejsca)# liczenie pierwiastka
-    wynik = round(liczba, miejsca) #zaokralenie
-    write(wynik) # wypisanie wyniku
+        wynik = pierwiastek(liczba, miejsca)# liczenie pierwiastka
+        wynik = round(wynik,miejsca) #zaokralenie
+        write(wynik) # wypisanie wynidsku
+    except ValueError:
+        write("Błąd niepoprawne dane potrzebna liczba całkowita")
+    except EOFError:
+        write("Brak danych")
     
 
 main(input, print)
