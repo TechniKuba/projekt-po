@@ -47,5 +47,7 @@ def main (read, write):
         write("Brak danych")
     
 
-main(input, print)
+# main startuje tylko gdy uruchamiamy ten plik a nie gdy go importujemy
+if __name__ == "__main__":
+    main(input, print)
 
