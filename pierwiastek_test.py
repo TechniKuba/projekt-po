@@ -1,5 +1,6 @@
 import pytest
 from pierwiastek import pierwiastek
+from decimal import Decimal, getcontext
 
 
 @pytest.mark.parametrize(  #uruchom test poniżej cztery razy, za każdym razem z innymi danymi z tabelki
@@ -18,3 +19,18 @@ def test_pierwiastek_znane_wartosci(liczba, miejsca, oczekiwane):
     wynik = pierwiastek(liczba, miejsca)
     # Assert: sprawdzenie
     assert round(wynik, miejsca) == oczekiwane
+
+# test uruchamia sie 3 razy, za kazdym razem z innymi danymi z tabelki
+@pytest.mark.parametrize(
+    "liczba,miejsca",
+    [(2,2),(2,50), (10,4)],
+)
+def test_blad_mniejszy_niz_pole_epsilon(liczba,miejsca):
+    # Arrange: wzorzec liczymy niezaleznie, z duza dokladnoscia
+    getcontext().prec = 1500
+    wzorzec = Decimal(liczba).sqrt()
+    epsilon = Decimal(10) ** -miejsca
+    # Act: wywolanie funkcji    
+    wynik = pierwiastek(liczba, miejsca)
+    # Assert: blad mniejszy niz pol epsilona
+    assert abs(wynik - wzorzec) < epsilon / 2
