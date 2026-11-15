@@ -1,12 +1,14 @@
-from decimal import Decimal, getcontext
+from decimal import Decimal, getcontext # Decimal: dokładnie liczby (mozna ustawic ile maja cyfr)      
+# prec = ile cyfr w sumie decimal pamieta i liczyu
+#getcontext daje dostęp do ustawień nam uzyc decimal i prec
 
 
-def pierwiastek(liczba, miejsca):
-    if type(liczba) != int or type(miejsca) != int:
+def pierwiastek(liczba, miejsca): # prec: ile cyfr pamieta liczba
+    if type(liczba) != int or type(miejsca) != int: #miejsce = liczba miejsc po przecinku
         raise TypeError("Potrzeba liczby całkowitej")
     if liczba < 0:
         raise ValueError(
-            "nie ma pierwiastka z liczby ujemnej"# jesli liczba ujemna, zglaszamy blad i zatrzymujemy funkcje
+            "nie ma pierwiastka z liczby ujemnej"# jesli liczba ujemna, zglaszamy blad i zatrzymujemy funkcje 
         )
     if miejsca <0:
         raise ValueError("miejsca po przecinku nie mogą byc ujemne")
@@ -18,10 +20,10 @@ def pierwiastek(liczba, miejsca):
 
     dlugosc = len(str(liczba))
     getcontext().prec = dlugosc + miejsca + 10
-    epsilon = (
+    epsilon = ( # prog dokladnosci, tez jako Decimal
         Decimal(10) ** -miejsca
     )  # epsilon liczony z liczby miejsc (minus robi ulamek)
-    bok_a = Decimal(liczba)
+    bok_a = Decimal(liczba)  # liczba jako Decimal, zeby liczyc dokladnie
     bok_b = liczba / bok_a  # b liczony z pola
 
     while abs(bok_a - bok_b) >= epsilon:

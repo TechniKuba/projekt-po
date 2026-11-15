@@ -34,3 +34,11 @@ def test_blad_mniejszy_niz_pole_epsilon(liczba,miejsca):
     wynik = pierwiastek(liczba, miejsca)
     # Assert: blad mniejszy niz pol epsilona
     assert abs(wynik - wzorzec) < epsilon / 2
+
+    def ujemna_liczba():
+        #arrange: dane
+        liczba = -4
+        miejsce = 2
+         # Act i Assert razem: wywolanie musi rzucic ValueErro
+        with pytest.raises(ValueError):
+                pierwiastek(liczba,miejsce)
