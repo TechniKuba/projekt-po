@@ -42,3 +42,12 @@ def test_blad_mniejszy_niz_pole_epsilon(liczba,miejsca):
          # Act i Assert razem: wywolanie musi rzucic ValueErro
         with pytest.raises(ValueError):
                 pierwiastek(liczba,miejsce)
+
+
+    def test_zly_typ():
+         #arrange: liczba z przecinkiem zamiat całkow
+         liczba = 2.5
+         miejsca = 2
+        # act i assert razem:
+         with pytest.raises(TypeError):
+            pierwiastek(liczba, miejsca)
