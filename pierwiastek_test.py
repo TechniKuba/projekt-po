@@ -1,9 +1,10 @@
 import pytest
 from pierwiastek import pierwiastek
 from decimal import Decimal, getcontext
+from pierwiastek import pierwiastek, main
 
 
-@pytest.mark.parametrize(  #uruchom test poniżej cztery razy, za każdym razem z innymi danymi z tabelki
+@pytest.mark.parametrize(  # uruchom test poniżej cztery razy, za każdym razem z innymi danymi z tabelki
     "liczba, miejsca, oczekiwane",
     [
         (4, 2, 2),
@@ -13,42 +14,70 @@ from decimal import Decimal, getcontext
     ],
 )
 def test_pierwiastek_znane_wartosci(liczba, miejsca, oczekiwane):
-    #AAA 
+    # AAA
     # Arrange: dane przychodza z tabelki wyzej
     # Act: wywolanie funkcji
     wynik = pierwiastek(liczba, miejsca)
     # Assert: sprawdzenie
     assert round(wynik, miejsca) == oczekiwane
 
+
 # test uruchamia sie 3 razy, za kazdym razem z innymi danymi z tabelki
 @pytest.mark.parametrize(
     "liczba,miejsca",
-    [(2,2),(2,50), (10,4)],
+    [(2, 2), (2, 50), (10, 4)],
 )
-def test_blad_mniejszy_niz_pole_epsilon(liczba,miejsca):
+def test_blad_mniejszy_niz_pole_epsilon(liczba, miejsca):
     # Arrange: wzorzec liczymy niezaleznie, z duza dokladnoscia
     getcontext().prec = 1500
     wzorzec = Decimal(liczba).sqrt()
     epsilon = Decimal(10) ** -miejsca
-    # Act: wywolanie funkcji    
+    # Act: wywolanie funkcji
     wynik = pierwiastek(liczba, miejsca)
     # Assert: blad mniejszy niz pol epsilona
     assert abs(wynik - wzorzec) < epsilon / 2
 
+
 def test_ujemna_liczba():
-    #arrange: dane
+    # arrange: dane
     liczba = -4
     miejsce = 2
     # Act i Assert razem: wywolanie musi rzucic ValueErro
     with pytest.raises(ValueError):
-        
-        pierwiastek(liczba,miejsce)
+
+        pierwiastek(liczba, miejsce)
 
 
 def test_zly_typ():
-    #arrange: liczba z przecinkiem zamiat całkow
+    # arrange: liczba z przecinkiem zamiat całkow
     liczba = 2.5
     miejsca = 2
     # act i assert razem:
     with pytest.raises(TypeError):
         pierwiastek(liczba, miejsca)
+
+
+def test_main_zly_typ():
+    dane = ["4", "2"]
+    wynik = []
+
+    # Arrange: udajemy wpisanie litery zamiast liczby
+    def read():
+        return dane.pop(0)
+
+    # act
+    main(read, wynik.append)
+    # Assert: main wypisal komunikat bledu, a nie wywalil programu
+    assert str(wynik[0] == "0")
+
+
+def test_brak_danych():
+    # Arrange: read od razu zglasza koniec danych
+    wynik = []
+
+    def read():
+        raise EOFError
+
+    main(read, wynik.append)
+
+    assert wynik[0] == "0"
