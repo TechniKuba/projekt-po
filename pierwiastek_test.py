@@ -1,5 +1,5 @@
 import pytest
-from pierwiastek import pierwiastek
+from pierwiastek import pierwiastek, main
 from decimal import Decimal, getcontext
 
 
@@ -39,16 +39,42 @@ def test_ujemna_liczba():
     #arrange: dane
     liczba = -4
     miejsce = 2
-    # Act i Assert razem: wywolanie musi rzucic ValueErro
+    # Act i Assert razem: wywolanie musi rzucic ValueError
     with pytest.raises(ValueError):
-        
+         
         pierwiastek(liczba,miejsce)
 
 
 def test_zly_typ():
-    #arrange: liczba z przecinkiem zamiat całkow
+    #arrange: liczba z przecinkiem zamiat całkowitej
     liczba = 2.5
     miejsca = 2
     # act i assert razem:
     with pytest.raises(TypeError):
         pierwiastek(liczba, miejsca)
+
+
+def test_main_dla_4_i_2():
+    dane = ["4", "2"]# udajemy wpisanie 2
+    wynik = []
+
+    def read():
+        return dane.pop(0) #pop bierze pierwszy element z listy
+    # Act: main pisze do listy wynik zamiast na ekran
+    main(read, wynik.append)
+    # Assert: main wypisal 2.00
+    assert str(wynik[0]) == "2.00"
+
+
+def test_main_brak_dancyh():
+    # Arrange: read od razu zglasza koniec danych
+    wynik= []
+
+    def read():
+        raise EOFError
+
+    # Act
+    main(read, wynik.append)
+    
+    # Assert: main pokazal komunikat zamiast sie wywalic
+    assert wynik[0] == "Brak danych"
