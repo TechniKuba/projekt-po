@@ -19,7 +19,7 @@ def pierwiastek(liczba, miejsca): # prec: ile cyfr pamieta liczba
         return Decimal(0)
 
     dlugosc = len(str(liczba))
-    getcontext().prec = dlugosc + miejsca + 10
+    getcontext().prec = dlugosc + miejsca + 10 # +10 zapasu zeby bledy zaokraglen nie psuly wyniku
     epsilon = ( # prog dokladnosci, tez jako Decimal
         Decimal(10) ** -miejsca
     )  # epsilon liczony z liczby miejsc (minus robi ulamek)

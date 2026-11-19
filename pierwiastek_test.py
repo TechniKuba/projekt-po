@@ -81,3 +81,11 @@ def test_main_brak_dancyh():
     
     # Assert: main pokazal komunikat zamiast sie wywalic
     assert wynik[0] == "Brak danych"
+
+        
+#wpisz python -m pytest -v
+#wpisz python -m pytest -v
+#wpisz python -m pytest -v
+#wpisz python -m pytest -v
+#wpisz python -m pytest -v
+#wpisz python -m pytest -v
